@@ -3,9 +3,9 @@
 
 # In[3]:
 
-
-from IPython.display import Image
-Image(filename='images/aiayn.png')
+#
+# from IPython.display import Image
+# Image(filename='images/aiayn.png')
 
 
 # The Transformer from ["Attention is All You Need"](https://arxiv.org/abs/1706.03762) has been on a lot of people's minds over the last year. Besides producing major improvements in translation quality, it provides a new architecture for many other NLP tasks. The paper itself is very clearly written, but the conventional wisdom has been that it is quite difficult to implement correctly. 
@@ -38,8 +38,10 @@ import math, copy, time
 from torch.autograd import Variable
 import matplotlib.pyplot as plt
 import seaborn
+# from IPython import get_ipython
+
 seaborn.set_context(context="talk")
-get_ipython().run_line_magic('matplotlib', 'inline')
+# get_ipython().run_line_magic('matplotlib', 'inline')
 
 
 # Table of Contents
@@ -109,7 +111,7 @@ class Generator(nn.Module):
 # In[4]:
 
 
-Image(filename='images/ModalNet-21.png')
+# Image(filename='images/ModalNet-21.png')
 
 
 # ## Encoder and Decoder Stacks   
@@ -265,10 +267,10 @@ def subsequent_mask(size):
 # In[13]:
 
 
-
-plt.figure(figsize=(5,5))
-plt.imshow(subsequent_mask(20)[0])
-None
+#
+# plt.figure(figsize=(5,5))
+# plt.imshow(subsequent_mask(20)[0])
+# None
 
 
 # ### Attention                                                                                                                                                                                                                                                                             
@@ -280,7 +282,7 @@ None
 # In[8]:
 
 
-Image(filename='images/ModalNet-19.png')
+# Image(filename='images/ModalNet-19.png')
 
 
 # 
@@ -315,7 +317,7 @@ def attention(query, key, value, mask=None, dropout=None):
 # In[6]:
 
 
-Image(filename='images/ModalNet-20.png')
+# Image(filename='images/ModalNet-20.png')
 
 
 # Multi-head attention allows the model to jointly attend to information from different representation subspaces at different positions. With a single attention head, averaging inhibits this.                                            
@@ -452,13 +454,13 @@ class PositionalEncoding(nn.Module):
 
 # In[19]:
 
+#
+# plt.figure(figsize=(15, 5))
+# pe = PositionalEncoding(20, 0)
+# y = pe.forward(Variable(torch.zeros(1, 100, 20)))
+# plt.plot(np.arange(100), y[0, :, 4:8].data.numpy())
+# plt.legend(["dim %d"%p for p in [4,5,6,7]])
 
-plt.figure(figsize=(15, 5))
-pe = PositionalEncoding(20, 0)
-y = pe.forward(Variable(torch.zeros(1, 100, 20)))
-plt.plot(np.arange(100), y[0, :, 4:8].data.numpy())
-plt.legend(["dim %d"%p for p in [4,5,6,7]])
-None
 
 
 # We also experimented with using learned positional embeddings [(cite)](https://arxiv.org/pdf/1705.03122.pdf) instead, and found that the two versions produced nearly identical results.  We chose the sinusoidal version because it may allow the model to extrapolate to sequence lengths longer than the ones encountered during training.    
@@ -498,7 +500,7 @@ def make_model(src_vocab, tgt_vocab, N=6,
 
 # Small example model.
 tmp_model = make_model(10, 10, 2)
-None
+# None
 
 
 # # Training
@@ -692,35 +694,35 @@ class LabelSmoothing(nn.Module):
 
 # In[28]:
 
-
-#Example of label smoothing.
-crit = LabelSmoothing(5, 0, 0.4)
-predict = torch.FloatTensor([[0, 0.2, 0.7, 0.1, 0],
-                             [0, 0.2, 0.7, 0.1, 0], 
-                             [0, 0.2, 0.7, 0.1, 0]])
-v = crit(Variable(predict.log()), 
-         Variable(torch.LongTensor([2, 1, 0])))
-
-# Show the target distributions expected by the system.
-plt.imshow(crit.true_dist)
-None
+#
+# #Example of label smoothing.
+# crit = LabelSmoothing(5, 0, 0.4)
+# predict = torch.FloatTensor([[0, 0.2, 0.7, 0.1, 0],
+#                              [0, 0.2, 0.7, 0.1, 0],
+#                              [0, 0.2, 0.7, 0.1, 0]])
+# v = crit(Variable(predict.log()),
+#          Variable(torch.LongTensor([2, 1, 0])))
+#
+# # Show the target distributions expected by the system.
+# plt.imshow(crit.true_dist)
+# None
 
 
 # > Label smoothing actually starts to penalize the model if it gets very confident about a given choice. 
 
 # In[29]:
 
-
-crit = LabelSmoothing(5, 0, 0.1)
-def loss(x):
-    d = x + 3 * 1
-    predict = torch.FloatTensor([[0, x / d, 1 / d, 1 / d, 1 / d],
-                                 ])
-    #print(predict)
-    return crit(Variable(predict.log()),
-                 Variable(torch.LongTensor([1]))).data[0]
-plt.plot(np.arange(1, 100), [loss(x) for x in range(1, 100)])
-None
+#
+# crit = LabelSmoothing(5, 0, 0.1)
+# def loss(x):
+#     d = x + 3 * 1
+#     predict = torch.FloatTensor([[0, x / d, 1 / d, 1 / d, 1 / d],
+#                                  ])
+#     #print(predict)
+#     return crit(Variable(predict.log()),
+#                  Variable(torch.LongTensor([1]))).data[0]
+# plt.plot(np.arange(1, 100), [loss(x) for x in range(1, 100)])
+# None
 
 
 # # A First  Example
@@ -1022,8 +1024,7 @@ if False:
 else:
     model = torch.load("iwslt.pt")
 
-
-# > Once trained we can decode the model to produce a set of translations. Here we simply translate the first sentence in the validation set. This dataset is pretty small so the translations with greedy search are reasonably accurate. 
+# > Once trained we can decode the model to produce a set of translations. Here we simply translate the first sentence in the validation set. This dataset is pretty small so the translations with greedy search are reasonably accurate.
 
 # In[45]:
 

@@ -1103,7 +1103,7 @@ def average(model, models):
 # In[10]:
 
 
-Image(filename="images/results.png")
+# Image(filename="images/results.png")
 
 
 # > The code we have written here is a version of the base model. There are fully trained version of this system available here  [(Example Models)](http://opennmt.net/Models-py/).

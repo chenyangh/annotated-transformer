@@ -642,7 +642,6 @@ def get_std_opt(model):
 
 # 
 # > Example of the curves of this model for different model sizes and for optimization hyperparameters. 
-
 # In[26]:
 
 

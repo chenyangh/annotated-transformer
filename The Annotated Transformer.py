@@ -652,7 +652,6 @@ opts = [NoamOpt(512, 1, 4000, None),
         NoamOpt(256, 1, 4000, None)]
 plt.plot(np.arange(1, 20000), [[opt.rate(i) for opt in opts] for i in range(1, 20000)])
 plt.legend(["512:4000", "512:8000", "256:4000"])
-None
 
 
 # ## Regularization                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          

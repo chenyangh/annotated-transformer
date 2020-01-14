@@ -607,8 +607,6 @@ def batch_size_fn(new, count, sofar):
 
 # In[25]:
 
-
-
 class NoamOpt:
     "Optim wrapper that implements rate."
     def __init__(self, model_size, factor, warmup, optimizer):
@@ -658,7 +656,6 @@ plt.legend(["512:4000", "512:8000", "256:4000"])
 # ### Label Smoothing
 # 
 # During training, we employed label smoothing of value $\epsilon_{ls}=0.1$ [(cite)](https://arxiv.org/abs/1512.00567).  This hurts perplexity, as the model learns to be more unsure, but improves accuracy and BLEU score.  
-
 # > We implement label smoothing using the KL div loss. Instead of using a one-hot target distribution, we create a distribution that has `confidence` of the correct word and the rest of the `smoothing` mass distributed throughout the vocabulary.
 
 # In[27]:
@@ -988,7 +985,6 @@ if True:
                             repeat=False, sort_key=lambda x: (len(x.src), len(x.trg)),
                             batch_size_fn=batch_size_fn, train=False)
     model_par = nn.DataParallel(model, device_ids=devices)
-None
 
 
 # > Now we train the model. I will play with the warmup steps a bit, but everything else uses the default parameters.  On an AWS p3.8xlarge with 4 Tesla V100s, this runs at ~27,000 tokens per second with a batch size of 12,000 
@@ -1121,9 +1117,6 @@ model, SRC, TGT = torch.load("en-de-model.pt")
 
 
 # In[ ]:
-
-
-
 
 
 # In[49]:
